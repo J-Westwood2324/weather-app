@@ -19,18 +19,18 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
       rel="stylesheet"
     />
     <title>Weather App</title>
   </head>
 </html>
 <body>
-  <div class="coontainer">
+  <div class="container">
     <div class="weatherApp">
       <form id="search-bar"></form>
       <div class="row">
-        <div class="col-3">
+        <div class="col-4">
           <input
             class="form-control me-2"
             type="search"
@@ -39,7 +39,7 @@
             id="search-input"
           />
         </div>
-        <div class="col-2">
+        <div class="col-3">
           <button type="submit" class="btn btn-secondary">Enter</button>
         </div>
       </div>
@@ -47,14 +47,15 @@
       <h2>Last Updated: Fri, 15:41</h2>
       <h3>Weather description</h3>
       <div class="row">
-        <div class="col-3">
+        <div class="col-5">
           <img
-            src="http://openweathermap.org/img/wn/03d@2x.png"
+            src="http://shecodes-assets.s3.amazonaws.com/api/weather/icons/scattered-clouds-day.png"
             alt="Weather icon"
           />
-          18 °C | F°
+
+          <span class="currentTemp">18</span> °C | F°
         </div>
-        <div class="col-3">
+        <div class="col-5">
           <ul>
             <li>Wind speed: 5 m/H</li>
             <li>Humidity:50%</li>
