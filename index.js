@@ -17,6 +17,35 @@ let timeHeading = document.querySelector("#current-date");
 let now = new Date();
 timeHeading.innerHTML = formatDate(now);
 
+function displayForecast() {
+  let forecastElement = document.querySelector("#forecast");
+  let forecastHTML = `<div class="row">`;
+  let days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+  days.forEach(function (day) {
+    forecastHTML =
+      forecastHTML +
+      `
+          <div class="col-2">
+            <div class="weather-forecast-date">${day}</div>
+            <img
+              class="weather-forecast-icon"
+              src="http://shecodes-assets.s3.amazonaws.com/api/weather/icons/scattered-clouds-day.png"
+              alt="Weather icon"
+              width = "50"
+              height = "40"
+            />
+            <div class="weather-forecast-temp">
+              <span class="weather-forecast-temp-max">18°</span> |
+              <span class="weather-forecast-temp-min">12°</span>
+            </div>
+          </div>
+        `;
+  });
+  forecastHTML = forecastHTML + `</div>`;
+
+  forecastElement.innerHTML = forecastHTML;
+}
+
 function currentTemp(response) {
   celsiusTemperature = Math.round(response.data.temperature.current);
 
@@ -79,3 +108,4 @@ let celsiusLink = document.querySelector("#celsius-link");
 celsiusLink.addEventListener("click", showCelsius);
 
 citySearch("London");
+displayForecast();
