@@ -17,7 +17,7 @@ let timeHeading = document.querySelector("#current-date");
 let now = new Date();
 timeHeading.innerHTML = formatDate(now);
 
-function displayForecast() {
+function displayForecast(response) {
   let forecastElement = document.querySelector("#forecast");
   let forecastHTML = `<div class="row">`;
   let days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
@@ -46,6 +46,12 @@ function displayForecast() {
   forecastElement.innerHTML = forecastHTML;
 }
 
+function getForecast(city) {
+  let apiKey = "ebt34064724a3a2573a40cf101o5b283";
+  let apiUrl = `https://api.shecodes.io/weather/v1/forecast?query=${city}&key=${apiKey}&units=metric`;
+  axios.get(apiUrl).then(displayForecast);
+}
+
 function currentTemp(response) {
   celsiusTemperature = Math.round(response.data.temperature.current);
 
@@ -65,6 +71,8 @@ function currentTemp(response) {
 
   let humidity = document.querySelector("#humidity");
   humidity.innerHTML = `Humidity: ${response.data.temperature.humidity}%`;
+
+  getForecast(response.data.city);
 }
 
 function citySearch(city) {
@@ -108,4 +116,3 @@ let celsiusLink = document.querySelector("#celsius-link");
 celsiusLink.addEventListener("click", showCelsius);
 
 citySearch("London");
-displayForecast();
