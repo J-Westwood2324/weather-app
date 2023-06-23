@@ -17,14 +17,14 @@ let timeHeading = document.querySelector("#current-date");
 let now = new Date();
 timeHeading.innerHTML = formatDate(now);
 
-let celciusTemp = null;
-
 function currentTemp(response) {
+  celsiusTemperature = Math.round(response.data.temperature.current);
+
   let h1 = document.querySelector("#city-name");
   h1.innerHTML = response.data.city;
 
   let h3 = document.querySelector("#current-temp");
-  h3.innerHTML = `${Math.round(response.data.temperature.current)}`;
+  h3.innerHTML = celsiusTemperature;
 
   let description = document.querySelector("#description");
   description.innerHTML = response.data.condition.description;
@@ -36,17 +36,46 @@ function currentTemp(response) {
 
   let humidity = document.querySelector("#humidity");
   humidity.innerHTML = `Humidity: ${response.data.temperature.humidity}%`;
-
-  celciusTemp = Math.round(response.data.temperature.current);
 }
 
-function citySearch(event) {
-  event.preventDefault();
-  let city = document.querySelector("#search-input").value;
+function citySearch(city) {
   let apiKey = "ebt34064724a3a2573a40cf101o5b283";
-  let apiUrl = `https://api.shecodes.io/weather/v1/current?query=${city}&key=${apiKey}`;
+  let apiUrl = `https://api.shecodes.io/weather/v1/current?query=${city}&key=${apiKey}&units=metric`;
   axios.get(apiUrl).then(currentTemp);
 }
 
+function handleSubmit(event) {
+  event.preventDefault();
+  let city = document.querySelector("#search-input");
+  citySearch(city.value);
+}
+
+function showFahrenheit(event) {
+  event.preventDefault();
+  let fahrenheitTemp = (celsiusTemperature * 9) / 5 + 32;
+  let temperatureElement = document.querySelector("#current-temp");
+  temperatureElement.innerHTML = Math.round(fahrenheitTemp);
+  celsiusLink.classList.remove("active");
+  fahrenheitLink.classList.add("active");
+}
+
+function showCelsius(event) {
+  event.preventDefault();
+  let temperatureElement = document.querySelector("#current-temp");
+  temperatureElement.innerHTML = celsiusTemperature;
+  celsiusLink.classList.add("active");
+  fahrenheitLink.classList.remove("active");
+}
+
+let celsiusTemperature = null;
+
 let search = document.querySelector("#search-bar");
-search.addEventListener("submit", citySearch);
+search.addEventListener("submit", handleSubmit);
+
+let fahrenheitLink = document.querySelector("#fahrenheit-link");
+fahrenheitLink.addEventListener("click", showFahrenheit);
+
+let celsiusLink = document.querySelector("#celsius-link");
+celsiusLink.addEventListener("click", showCelsius);
+
+citySearch("London");
